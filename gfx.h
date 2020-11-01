@@ -8,8 +8,12 @@
 
 #include <X11/Xlib.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #define SIZE 50
+#define PI 3.14159
+// create a polygon with a varying number of sides
+void polygon(int, int, int, int);
 
 // Open a new graphics window. 
 void gfx_open( int width, int height, const char *title );

@@ -19,7 +19,7 @@ int main() {
 		ym = gfx_ypos();
 		// quit
 		if (c == 'q') break;
-		// clear window
+		
 		if ((int) c == 27) {
 			gfx_clear();
 		}
@@ -27,10 +27,26 @@ int main() {
 		else if (c == 'c') {
 			gfx_color(255, 255, 255);
 			gfx_circle(xm, ym, SIZE/2);
-			gfx_color(0, 0, 0);
-			gfx_circle(xm, ym, SIZE/2 - 5);
 		}
-		
+		// green triangle
+		else if (c == 't') {
+			gfx_color(0, 255, 0);
+			polygon(xm, ym, SIZE/2, 3);
+		}
 
 	}
+	return 0;
+}
+
+void polygon(int xm, int ym, int sides, int radius) {
+	float i, part, x1, x2, y1, y2;
+	part = 2*PI/sides;
+	
+	for (i = 0; i <= 2*PI; i += part) {
+		x1 = radius * cos(i) + xm;
+		x2 = radius * cos(i + part) + xm;
+		y1 = radius * sin(i) + ym;
+		y2 = radius * sin(i + part) + ym;
+		gfx_line(x1, y1, x2, y2);	
+	}	
 }
