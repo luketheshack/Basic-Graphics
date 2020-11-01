@@ -9,6 +9,7 @@
 #include <X11/Xlib.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define SIZE 50
 #define PI 3.14159
