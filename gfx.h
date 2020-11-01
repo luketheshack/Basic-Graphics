@@ -7,6 +7,7 @@
 #define GFX_H
 
 #include <X11/Xlib.h>
+#include <unistd.h>
 
 #define SIZE 50
 

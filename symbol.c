@@ -17,7 +17,12 @@ int main() {
 		c = gfx_wait();
 		xm = gfx_xpos();
 		ym = gfx_ypos();
+		// quit
 		if (c == 'q') break;
+		// clear window
+		if ((int) c == 27) {
+			gfx_clear();
+		}
 		// white circle
 		else if (c == 'c') {
 			gfx_color(255, 255, 255);
