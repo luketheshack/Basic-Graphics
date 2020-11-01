@@ -8,6 +8,8 @@
 
 #include <X11/Xlib.h>
 
+#define SIZE 50
+
 // Open a new graphics window. 
 void gfx_open( int width, int height, const char *title );
 
