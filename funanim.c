@@ -9,7 +9,6 @@
 
 int main() {
 	
-	int pausetime = 20000;
 	char c;
 	int wd = 500, ht = 400;
 	gfx_open(wd, ht, "Fun Animation");
@@ -17,27 +16,10 @@ int main() {
 	float xstart_sq = wd/2-100;
 	float xstart_tr = wd/2+100;
 	float ystart = ht/2;
-
-	float xm_s = 0, ym_s = 0; 
-	float xm_t = 0, ym_t = 0;
 	float radians = 0;
 
-	while (1) {
-		gfx_clear();
-
-		gfx_color(255, 0, 0);
-		square(xstart_sq + xm_s, ystart+ym_s, SIZE/2);
-		gfx_color(0, 255, 0);
-		triangle(xstart_tr + xm_t, ystart+ym_t, SIZE/2);
-
-		// Update square and triangle locations
-		circularmotion(&xm_s, &ym_s, xstart_sq, ystart, &radians);
-		circularmotion(&xm_t, &ym_t, xstart_tr, ystart, &radians);
-
-		usleep(pausetime);
-		gfx_flush();	
-	}	
-		
+	circularmotion(xstart_sq, xstart_tr, ystart, radians);
+	
 	return 0;
 }
 
@@ -63,25 +45,26 @@ void polygon(int xm, int ym, int sides, int radius) {
 	}	
 }
 
-void circularmotion(float *xm, float *ym, float xstart, float ystart, float *radians) {
-	float pi = 3.14159;
-	if (*radians > 2*pi) {
-		*radians -= 2*pi;
+void circularmotion(float xstart_sq, float xstart_tr, float ystart, float radians) {
+	int x_offset = 0, y_offset = 0, pausetime = 15000;
+	while (1) {
+		gfx_clear();
+
+		if (radians > 2*PI) {
+			radians -= 2*PI;
+		}
+		
+		gfx_color(255, 0, 0);
+		triangle(xstart_tr + x_offset, ystart + y_offset, SIZE/2);
+		gfx_color(0, 255, 0);
+		square(xstart_sq + x_offset, ystart + y_offset, SIZE/2);
+
+		gfx_flush();
+		x_offset = ROT*cos(radians);
+		y_offset = ROT*sin(radians);
+
+		radians += 0.01;
+		usleep(pausetime);
 	}
-	*xm = ROT*cos(*radians);
-	*ym = ROT*cos(*radians);
-	if (*radians >= pi && *xm > 0) {
-		*xm *= -1;
-	}
-	if (*radians <= pi && *xm < 0) {
-		*xm *= -1;
-	}
-	if ((*radians >= pi/2 && *radians < 3*pi/2) && *ym > 0) {
-		*ym *= -1;
-	}
-	if ((*radians <= pi/2 || *radians > 3*pi/2) && *ym < 0) {
-		*ym *= -1;
-	}
-	
-	*radians += 0.01;
+		
 }
