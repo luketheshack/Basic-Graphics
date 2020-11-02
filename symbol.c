@@ -7,7 +7,7 @@
 int main() {
 	int wd = 500; // width
 	int ht = 400; // height
-	char c;
+	char c = '1';
 	int xm, ym;
 
 	gfx_open(wd, ht, "Symbol");
