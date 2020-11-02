@@ -15,6 +15,8 @@
 #define SIZE 50
 #define PI 3.14159
 
+void circularmotion(float *, float *, float *);
+
 // randomize ball
 void randomizeball(float *, float *, float *, float *);
 
