@@ -70,18 +70,11 @@ void circularmotion(float *xm, float *ym, float xstart, float ystart, float *rad
 	}
 	*xm = ROT*cos(*radians);
 	*ym = ROT*cos(*radians);
-	if (*radians >= pi && *xm > 0) {
+	if (*radians >= pi) {
 		*xm *= -1;
 	}
-	if (*radians <= pi && *xm < 0) {
-		*xm *= -1;
-	}
-	if ((*radians >= pi/2 && *radians < 3*pi/2) && *ym > 0) {
+	if (*radians >= pi/2 && *radians < 3*pi/2) {
 		*ym *= -1;
 	}
-	if ((*radians <= pi/2 || *radians > 3*pi/2) && *ym < 0) {
-		*ym *= -1;
-	}
-	
 	*radians += 0.01;
 }
