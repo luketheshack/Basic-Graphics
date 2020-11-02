@@ -15,6 +15,9 @@
 #define SIZE 50
 #define PI 3.14159
 
+// randomize ball
+void randomizeball(float *, float *, float *, float *);
+
 // creates square
 void square(int, int, int);
 

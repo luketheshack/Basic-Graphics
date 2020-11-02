@@ -12,13 +12,38 @@ int main() {
 	int pausetime = 5000;
 		
 	gfx_open(wd, ht, "Bouncing Ball");
+	randomizeball(&xc, &yc, &vx, &vy);
 
 	while (c != 'q') {
-		while (1) {
+		gfx_clear();
+		gfx_circle(xc, yc, SIZE/2);
+		gfx_flush();
+		
+		xc += vx;
+		yc += vy;
 
+		if (xc >= wd - SIZE/2 || xc <= SIZE/2) {
+			vx = -vx;
 		}
-		c = gfx_wait();
+
+		if (yc >= wd - SIZE/2 || yc <= SIZE/2) {
+			vy = -vy;
+		}
+
+		if (gfx_event_waiting()) {
+			c = gfx_wait();
+			xc = gfx_xpos();
+			yc = gfx_ypos();
+			randomizeball(&xc, &yc, &vx, &vy);
+		}
 	}
 	
 	return 0;
+}
+
+void randomizeball(float *xc, float *yc, float *vx, float *vy) {
+	*(xc) = gfx_xpos();
+	*(yc) = gfx_ypos();
+	*(vx) = (rand() % 10) - 10;
+	*(vy) = (rand() % 10) - 10;
 }
