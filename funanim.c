@@ -14,21 +14,25 @@ int main() {
 	int wd = 500, ht = 400;
 	gfx_open(wd, ht, "Fun Animation");
 
-	float xm_s = wd/2 - 100, ym_s = ht/2; 
-	float xm_t = wd/2 + 100, ym_t = ht/2;
+	float xstart_sq = wd/2-100;
+	float xstart_tr = wd/2+100;
+	float ystart = ht/2;
+
+	float xm_s = 0, ym_s = 0; 
+	float xm_t = 0, ym_t = 0;
 	float radians = 0;
 
 	while (1) {
 		gfx_clear();
 
 		gfx_color(255, 0, 0);
-		square(xm_s, ym_s, SIZE/2);
+		square(xstart_sq + xm_s, ystart+ym_s, SIZE/2);
 		gfx_color(0, 255, 0);
-		triangle(xm_t, ym_t, SIZE/2);
+		triangle(xstart_tr + xm_t, ystart+ym_t, SIZE/2);
 
 		// Update square and triangle locations
-		circularmotion(&xm_s, &ym_s, &radians);
-		circularmotion(&xm_t, &ym_t, &radians);
+		circularmotion(&xm_s, &ym_s, xstart_sq, ystart, &radians);
+		circularmotion(&xm_t, &ym_t, xstart_tr, ystart, &radians);
 
 		usleep(pausetime);
 		gfx_flush();	
@@ -59,8 +63,9 @@ void polygon(int xm, int ym, int sides, int radius) {
 	}	
 }
 
-void circularmotion(float *xm, float *ym, float *radians) {
+void circularmotion(float *xm, float *ym, float xstart, float ystart, float *radians) {
 	float pi = 3.14159;
+
 	*xm = ROT*cos(*radians);
 	*ym = ROT*cos(*radians);
 	if (*radians >= pi) {
