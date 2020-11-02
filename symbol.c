@@ -20,6 +20,8 @@ int main() {
 		// quit
 		if (c == 'q') break;
 		
+		int val = c - '0';
+		// clear screen
 		if ((int) c == 27) {
 			gfx_clear();
 		}
@@ -31,20 +33,31 @@ int main() {
 		// green triangle
 		else if (c == 't') {
 			gfx_color(0, 255, 0);
-			polygon(xm, ym, 3, SIZE/2);
+			triangle(xm, ym, SIZE/2);
 		}
-		int val = atoi(c);
-		else if ( val >= 3 || val <= 9 ) {
+		// n-sided polygon
+		else if ( val >= 3 && val <= 9 ) {
 			gfx_color(255, 0, 255);
 			polygon(xm, ym, val, SIZE/2);
 		}
-		else if (c == 1) {
+		// blue square
+		else if ((int) c == 1) {
 			gfx_color(0, 0, 255);
-			polygon(xm, ym, 4, SIZE/2);
+			square(xm, ym, SIZE/2);
 		}
-
+		else {
+			printf("Bad input, please try again!\n");
+		}
 	}
 	return 0;
+}
+
+void triangle(int xm, int ym, int radius) {
+	polygon(xm, ym, 3, radius);
+}
+
+void square(int xm, int ym, int radius) {
+	polygon(xm, ym, 4, radius);
 }
 
 void polygon(int xm, int ym, int sides, int radius) {

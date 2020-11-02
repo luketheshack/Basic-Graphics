@@ -10,9 +10,17 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
 #define SIZE 50
 #define PI 3.14159
+
+// creates square
+void square(int, int, int);
+
+// creates triangle
+void triangle(int, int, int);
+
 // create a polygon with a varying number of sides
 void polygon(int, int, int, int);
 
