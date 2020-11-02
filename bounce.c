@@ -45,6 +45,6 @@ int main() {
 void randomizeball(float *xc, float *yc, float *vx, float *vy) {
 	*(xc) = gfx_xpos();
 	*(yc) = gfx_ypos();
-	*(vx) = (rand() % 10) - 10;
-	*(vy) = (rand() % 10) - 10;
+	*(vx) = (rand() % 10) - 5;
+	*(vy) = (rand() % 10) - 5;
 }
