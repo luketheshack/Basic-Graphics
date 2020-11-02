@@ -9,7 +9,7 @@ int main() {
 	char c = 0;
 	float xc, yc; // ball x-pos and ball y-pos
 	float vx, vy; // ball velocity x and velocity y
-	int pausetime = 5000;
+	int pausetime = 50000;
 		
 	gfx_open(wd, ht, "Bouncing Ball");
 	randomizeball(&xc, &yc, &vx, &vy);
@@ -26,7 +26,7 @@ int main() {
 			vx = -vx;
 		}
 
-		if (yc >= wd - SIZE/2 || yc <= SIZE/2) {
+		if (yc >= ht - SIZE/2 || yc <= SIZE/2) {
 			vy = -vy;
 		}
 
@@ -36,6 +36,7 @@ int main() {
 			yc = gfx_ypos();
 			randomizeball(&xc, &yc, &vx, &vy);
 		}
+		usleep(pausetime);
 	}
 	
 	return 0;
