@@ -46,7 +46,9 @@ void polygon(int xm, int ym, int sides, int radius) {
 }
 
 void circularmotion(float xstart_sq, float xstart_tr, float ystart, float radians) {
-	int x_offset = 0, y_offset = 0, pausetime = 15000;
+	int x_offset = 0, y_offset = 0, pausetime = 5000;
+	char c;
+	printf("Type 'd' to slow down the animation, 'u' to speed it up, or 'q' to quit.\n");
 	while (1) {
 		gfx_clear();
 
@@ -54,17 +56,41 @@ void circularmotion(float xstart_sq, float xstart_tr, float ystart, float radian
 			radians -= 2*PI;
 		}
 		
+		// multiple shapes and colors
 		gfx_color(255, 0, 0);
 		triangle(xstart_tr + x_offset, ystart + y_offset, SIZE/2);
 		gfx_color(0, 255, 0);
 		square(xstart_sq + x_offset, ystart + y_offset, SIZE/2);
 
 		gfx_flush();
+		// circular motion
 		x_offset = ROT*cos(radians);
 		y_offset = ROT*sin(radians);
 
 		radians += 0.01;
 		usleep(pausetime);
+
+		// user control of display
+		if (gfx_event_waiting()) {
+			c = gfx_wait();
+			switch (c) {
+				// slows down the animation
+				case 'd':
+					pausetime *= 2;
+					break;
+				// speeds up the animation
+				case 'u':
+					pausetime /= 2;
+					break;
+				// quits the program
+				case 'q':
+					printf("Goodbye!\n");
+					return;
+				default:
+					printf("Invalid input!\n");
+			}
+		}
+
 	}
 		
 }
